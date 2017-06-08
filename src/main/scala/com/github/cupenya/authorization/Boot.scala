@@ -8,8 +8,6 @@ import com.github.cupenya.authorization.health._
 import com.github.cupenya.service.discovery._
 import com.github.cupenya.service.discovery.health._
 import com.github.cupenya.authorization.server._
-import com.github.cupenya.authorization.configuration._
-import com.github.cupenya.authorization.model._
 
 object Boot extends App
     with PermissionHttpService
@@ -21,8 +19,8 @@ object Boot extends App
   implicit val ec = system.dispatcher
   implicit val materializer = ActorMaterializer()
 
-  private val interface = Config.authorization.interface
-  private val port = Config.authorization.port
+  private val interface = Config.app.interface
+  private val port = Config.app.port
 
   val mainRoute =
     defaultCORSHeaders {
@@ -32,7 +30,6 @@ object Boot extends App
     }
 
   log.info(s"Starting Authorization service using interface $interface and port $port")
-
 
   Http().bindAndHandle(mainRoute, interface, port).transform(
     binding => log.info(s"REST interface bound to ${binding.localAddress} "), { t => log.error(s"Couldn't start Authorization service", t); sys.exit(1) }
