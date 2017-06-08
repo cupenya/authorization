@@ -8,6 +8,11 @@ import scala.collection.JavaConversions._
 object Config {
   private val rootConfig = ConfigFactory.load()
 
+  object database {
+    private val config = rootConfig.getConfig("database")
+    val mongoUri = config.getString("mongoUri")
+  }
+
   object app {
     private val config = rootConfig.getConfig("app")
     val interface = config.getString("interface")

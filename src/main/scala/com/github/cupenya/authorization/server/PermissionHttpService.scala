@@ -7,9 +7,11 @@ import akka.http.scaladsl.server.Directives
 import akka.stream.Materializer
 import akka.util.Timeout
 import spray.json.DefaultJsonProtocol
+import org.mongodb.scala._
 
 import scala.concurrent.ExecutionContext
-import com.github.cupenya.service.discovery._
+import com.github.cupenya.authorization.persistence._
+import com.github.cupenya.authorization.model._
 
 sealed trait PermissionListModel
 
@@ -21,7 +23,7 @@ object PermissionListModel extends DefaultJsonProtocol {
   implicit val PermissionListFormat = jsonFormat1(PermissionList)
 }
 
-trait PermissionHttpService extends Directives with SprayJsonSupport {
+trait PermissionHttpService extends Directives with SprayJsonSupport with DefaultJsonProtocol {
   import scala.concurrent.duration._
   import scala.language.postfixOps
 
@@ -29,18 +31,31 @@ trait PermissionHttpService extends Directives with SprayJsonSupport {
 
   implicit def ec: ExecutionContext
 
+  implicit def db: MongoDatabase
+
   implicit val materializer: Materializer
 
   implicit val timeout = Timeout(5 seconds)
+
+  private val permissionDao = PermissionDao
 
   val permissionsRoute =
     pathPrefix("permissions") {
       pathEndOrSingleSlash {
         get {
           complete {
-            PermissionList(Nil)
+            permissionDao.findAll().map(_.toList).map(PermissionList.apply)
           }
-        }
+        } ~
+          post {
+            entity(as[Permission]) { permission =>
+              complete {
+                permissionDao.save(permission).map { _ =>
+                  Map.empty[String, String]
+                }
+              }
+            }
+          }
       }
     }
 }

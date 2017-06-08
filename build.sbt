@@ -17,6 +17,8 @@ libraryDependencies ++= {
   val scalaTestV       = "3.0.0-M15"
   val slf4sV           = "1.7.10"
   val logbackV         = "1.1.3"
+  val scalaCommonV      = "2.1.1"
+
   Seq(
     "com.typesafe.akka" %% "akka-http-core"                    % akkaV,
     "com.typesafe.akka" %% "akka-http-experimental"            % akkaV,
@@ -24,6 +26,8 @@ libraryDependencies ++= {
     "com.typesafe.akka" %% "akka-slf4j"                        % akkaV,
     "org.slf4s"         %% "slf4s-api"                         % slf4sV,
     "ch.qos.logback"    %  "logback-classic"                   % logbackV,
+    "com.cupenya"       %% "scala-common"                      % scalaCommonV,
+    "com.cupenya"       %% "scala-common-mongo"                % scalaCommonV,
     "com.github.cupenya" %% "k8s-svc-discovery"                % "0.3-SNAPSHOT",
     "org.scalatest"     %% "scalatest"                         % scalaTestV       % Test,
     "com.typesafe.akka" %% "akka-http-testkit"                 % akkaV            % Test
