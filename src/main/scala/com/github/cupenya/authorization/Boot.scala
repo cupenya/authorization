@@ -36,8 +36,6 @@ object Boot extends App
   )
 
   private def handleServiceUpdates[T <: ServiceUpdate](allServiceUpdates: List[T]) = {
-    log.info(s"Got permissions update in all namespaces: ${allServiceUpdates.map(_.permissions)}")
-
     val serviceUpdates = allServiceUpdates.filter { upd =>
       Config.integration.kubernetes.namespaces.isEmpty || Config.integration.kubernetes.namespaces.contains(upd.namespace)
     }
