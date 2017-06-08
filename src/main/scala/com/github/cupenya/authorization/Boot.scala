@@ -36,6 +36,10 @@ object Boot extends App
   )
 
   private def handleServiceUpdates[T <: ServiceUpdate](allServiceUpdates: List[T]) = {
+    allServiceUpdates.foreach(serviceUpdate => {
+      log.info(s"Found permissions in all namespaces: ${serviceUpdate.permissions}")
+    })
+
     val serviceUpdates = allServiceUpdates.filter { upd =>
       Config.integration.kubernetes.namespaces.isEmpty || Config.integration.kubernetes.namespaces.contains(upd.namespace)
     }
