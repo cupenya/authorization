@@ -6,9 +6,9 @@ import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives
 import akka.stream.Materializer
 import akka.util.Timeout
+import com.mongodb.casbah.Imports._
 import spray.json.DefaultJsonProtocol
-// import com.github.cupenya.authorization.server._
-import org.mongodb.scala._
+
 import spray.json._
 
 import scala.concurrent.ExecutionContext
@@ -29,7 +29,7 @@ trait PermissionHttpService extends Directives with SprayJsonSupport with Protoc
 
   implicit def ec: ExecutionContext
 
-  implicit def db: MongoDatabase
+  implicit def db: MongoDB
 
   implicit val materializer: Materializer
 

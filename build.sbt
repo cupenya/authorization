@@ -18,7 +18,7 @@ libraryDependencies ++= {
   val scalaTestV       = "3.0.0-M15"
   val slf4sV           = "1.7.10"
   val logbackV         = "1.1.3"
-  val scalaCommonV      = "2.1.1"
+  val scalaCommonV      = "2.2.0"
 
   Seq(
     "com.typesafe.akka" %% "akka-http"                         % akkaHttpV,

@@ -6,7 +6,6 @@ import akka.http.scaladsl.model.StatusCodes
 import akka.stream.ActorMaterializer
 import com.github.cupenya.authorization.health._
 import com.github.cupenya.service.discovery._
-import com.github.cupenya.service.discovery.health._
 import com.github.cupenya.authorization.persistence._
 import com.github.cupenya.authorization.server._
 import com.github.cupenya.authorization.model.{ Permission => PermissionEntity }
